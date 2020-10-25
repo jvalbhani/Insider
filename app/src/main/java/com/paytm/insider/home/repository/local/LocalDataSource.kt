@@ -30,10 +30,6 @@ class LocalDataSource(private val homeDao: HomeDao) : DataSource.Local {
         callback: DataSource.Callback<List<Event>>
     ) {
         val data = homeDao.loadEvents(slugs)
-        if (data.isNullOrEmpty()) {
-            callback.onFailure(-1, "Failed to load events")
-            return
-        }
         callback.onSuccess(0, data.map { it.map() })
     }
 }

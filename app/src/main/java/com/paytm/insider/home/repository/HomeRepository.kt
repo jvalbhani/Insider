@@ -63,12 +63,13 @@ class HomeRepository(
         params: HashMap<String, String>,
         callback: DataSource.Callback<Home>
     ) {
-        GlobalScope.launch {
+        GlobalScope.launch(Dispatchers.IO) {
             remoteDataSource.fetchData(params, object : DataSource.Callback<Home> {
                 override fun onSuccess(responseCode: Int, data: Home?, message: String?) {
                     if (data != null) {
-                        callback.onSuccess(responseCode, data, message)
                         saveAll(data, params["city"])
+                        callback.onSuccess(responseCode, data, message)
+                        return
                     }
                     callback.onFailure(responseCode, message)
                 }

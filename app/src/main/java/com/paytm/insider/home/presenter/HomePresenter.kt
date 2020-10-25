@@ -19,6 +19,7 @@ class HomePresenter(
     private var view: HomeContract.View? = null
 
     override fun init() {
+        Log.d("HomePresenter", "init")
         view?.showLoadingDialog()
         view?.enableLocationPicker(networkUtility.isDeviceConnectedToInternet())
         val cities = repository.getSupportedCities()
@@ -28,6 +29,7 @@ class HomePresenter(
     }
 
     override fun loadHomePage(city: String) {
+        Log.d("HomePresenter", "loadHomePage $city")
         view?.showLoadingDialog()
         repository.getData(
             hashMapOf(
@@ -41,6 +43,7 @@ class HomePresenter(
                 }
 
                 override fun onFailure(errorCode: Int, message: String?) {
+                    Log.d("HomePresenter", "loadHomePage error $message")
                     view?.hideLoadingDialog()
                     view?.showErrorMessage()
                 }
@@ -76,6 +79,7 @@ class HomePresenter(
     }
 
     private fun setGroupList(home: Home?) {
+        Log.d("HomePresenter", "groupList")
         val hashMap = HashMap<String, List<String>>()
         home?.featured?.map { it.slug }?.let {
             hashMap["Featured"] = it
@@ -86,7 +90,7 @@ class HomePresenter(
         home?.list?.groupwiseList?.let {
             hashMap.putAll(it)
         }
-        view?.setGroupList(hashMap)
         view?.hideLoadingDialog()
+        view?.setGroupList(hashMap)
     }
 }

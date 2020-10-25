@@ -27,10 +27,7 @@ class HomeFragment : Fragment(), HomeContract.View {
 
     private val presenter: HomePresenter by inject()
     private val events = mutableListOf<Event>()
-    private val groups = mutableMapOf<String, List<String>>()
-    private val loadingDialog = LoadingDialog()
-    private val errorDialog = ErrorDialog()
-
+    private var loadingDialog: LoadingDialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,19 +66,6 @@ class HomeFragment : Fragment(), HomeContract.View {
 
             override fun onNothingSelected(parent: AdapterView<*>?) = Unit
         }
-
-        spGroup.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                groups[(view as TextView).text.toString()]?.let { presenter.onGroupSelected(it) }
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) = Unit
-        }
     }
 
     override fun setEvents(eventList: List<Event>) {
@@ -105,42 +89,53 @@ class HomeFragment : Fragment(), HomeContract.View {
         spLocation.isEnabled = enable
     }
 
-    override fun setGroupList(groupsMap: HashMap<String, List<String>>?) {
+    override fun setGroupList(groups: HashMap<String, List<String>>?) {
         GlobalScope.launch(Dispatchers.Main) {
-            groups.clear()
-            groupsMap?.let {
-                groups.putAll(it)
-                spGroup.adapter =
-                    ArrayAdapter(
-                        requireContext(),
-                        android.R.layout.simple_spinner_item,
-                        groupsMap.keys.toList()
-                    )
+            groups?.let {
+                spGroup.adapter = ArrayAdapter(
+                    requireContext(),
+                    android.R.layout.simple_spinner_item,
+                    groups.keys.toList()
+                )
+                spGroup.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long
+                    ) {
+                        groups[(view as TextView).text.toString()]?.let {
+                            presenter.onGroupSelected(it)
+                        }
+                    }
+
+                    override fun onNothingSelected(parent: AdapterView<*>?) = Unit
+                }
             }
         }
     }
 
     override fun showErrorMessage() {
         GlobalScope.launch(Dispatchers.Main) {
-            if (!loadingDialog.isVisible) {
+            val errorDialog = ErrorDialog()
                 errorDialog.show(requireFragmentManager(), "")
-            }
         }
     }
 
     override fun showLoadingDialog() {
         GlobalScope.launch(Dispatchers.Main) {
-            if (!loadingDialog.isVisible) {
-                loadingDialog.show(requireFragmentManager(), "")
+            if (loadingDialog == null) {
+                loadingDialog = LoadingDialog()
+            }
+            if (!loadingDialog!!.isVisible) {
+                loadingDialog!!.show(requireActivity().supportFragmentManager, "")
             }
         }
     }
 
     override fun hideLoadingDialog() {
         GlobalScope.launch(Dispatchers.Main) {
-            if (loadingDialog.isVisible) {
-                loadingDialog.dismiss()
-            }
+            loadingDialog?.dismissAllowingStateLoss()
         }
     }
 
