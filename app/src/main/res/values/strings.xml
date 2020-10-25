@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Insider</string>
+    <string name="rupee_symbol">₹%s</string>
+</resources>
