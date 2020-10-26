@@ -89,14 +89,20 @@ class HomeFragment : Fragment(), HomeContract.View {
         spLocation.isEnabled = enable
     }
 
-    override fun setGroupList(groups: HashMap<String, List<String>>?) {
+    override fun setGroupList(
+        groups: HashMap<String, List<String>>?,
+        selected: String?
+    ) {
         GlobalScope.launch(Dispatchers.Main) {
             groups?.let {
+                var selectedKey = selected
+                val groupTitles = groups.keys.toList()
                 spGroup.adapter = ArrayAdapter(
                     requireContext(),
                     android.R.layout.simple_spinner_item,
-                    groups.keys.toList()
+                    groupTitles
                 )
+                selected?.let { spGroup.setSelection(groupTitles.indexOf(it)) }
                 spGroup.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(
                         parent: AdapterView<*>?,
@@ -105,7 +111,10 @@ class HomeFragment : Fragment(), HomeContract.View {
                         id: Long
                     ) {
                         groups[(view as TextView).text.toString()]?.let {
-                            presenter.onGroupSelected(it)
+                            if (selectedKey.isNullOrBlank()) {
+                                presenter.onGroupSelected(it)
+                            }
+                            selectedKey = null
                         }
                     }
 

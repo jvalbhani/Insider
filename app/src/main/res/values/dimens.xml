@@ -3,4 +3,8 @@
     <dimen name="layout_event_standard_margin">16dp</dimen>
     <dimen name="layout_event_standard_elevation">4dp</dimen>
     <dimen name="layout_event_standard_text_margin">8dp</dimen>
+    <dimen name="layout_event_standard_tag_text_size">8sp</dimen>
+    <dimen name="layout_event_standard_title_text_size">14sp</dimen>
+    <dimen name="layout_event_standard_text_size">12sp</dimen>
+    <dimen name="layout_event_standard_tag_padding">4dp</dimen>
 </resources>

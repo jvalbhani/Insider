@@ -7,7 +7,7 @@ class HomeContract {
         fun setEvents(eventList: List<Event>)
         fun setLocation(list: List<String>, selected: Int)
         fun enableLocationPicker(enable: Boolean)
-        fun setGroupList(groups: HashMap<String, List<String>>?)
+        fun setGroupList(groups: HashMap<String, List<String>>?, selected: String? = null)
         fun showErrorMessage()
         fun showLoadingDialog()
         fun hideLoadingDialog()

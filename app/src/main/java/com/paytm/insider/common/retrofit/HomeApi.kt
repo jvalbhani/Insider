@@ -1,4 +1,4 @@
-package com.paytm.insider.common
+package com.paytm.insider.common.retrofit
 
 import com.paytm.insider.common.datamodel.Home
 import retrofit2.Call

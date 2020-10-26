@@ -24,10 +24,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/layout_event_standard_text_margin"
         android:background="@drawable/rounded_corner"
-        android:padding="4dp"
+        android:padding="@dimen/layout_event_standard_tag_padding"
         android:textAllCaps="true"
-        android:textSize="8sp"
-        app:layout_constraintCircleRadius="12dp"
+        android:textSize="@dimen/layout_event_standard_tag_text_size"
         app:layout_constraintEnd_toEndOf="@id/ivThumb"
         app:layout_constraintTop_toTopOf="@id/ivThumb" />
 
@@ -38,7 +37,7 @@
         android:layout_margin="@dimen/layout_event_standard_text_margin"
         android:lines="3"
         android:maxLines="3"
-        android:textSize="14sp"
+        android:textSize="@dimen/layout_event_standard_title_text_size"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/ivThumb"
         app:layout_constraintTop_toBottomOf="@id/ivThumb" />
@@ -49,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/layout_event_standard_text_margin"
         android:maxLines="1"
-        android:textSize="12sp"
+        android:textSize="@dimen/layout_event_standard_text_size"
         app:layout_constraintStart_toStartOf="@id/ivThumb"
         app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
@@ -59,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/layout_event_standard_text_margin"
         android:maxLines="1"
-        android:textSize="12sp"
+        android:textSize="@dimen/layout_event_standard_text_size"
         app:layout_constraintStart_toStartOf="@id/ivThumb"
         app:layout_constraintTop_toBottomOf="@id/tvDateTime" />
 
@@ -69,7 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/layout_event_standard_text_margin"
         android:maxLines="1"
-        android:textSize="12sp"
+        android:textSize="@dimen/layout_event_standard_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@id/ivThumb"
         app:layout_constraintTop_toBottomOf="@id/tvVenue" />

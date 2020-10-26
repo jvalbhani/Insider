@@ -1,8 +1,8 @@
 package com.paytm.insider.home.repository.remote
 
 import android.util.Log
-import com.paytm.insider.common.HomeApi
 import com.paytm.insider.common.datamodel.Home
+import com.paytm.insider.common.retrofit.HomeApi
 import com.paytm.insider.home.repository.DataSource
 import retrofit2.Callback
 import retrofit2.Response

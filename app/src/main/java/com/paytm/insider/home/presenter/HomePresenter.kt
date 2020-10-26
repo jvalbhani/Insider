@@ -91,6 +91,17 @@ class HomePresenter(
             hashMap.putAll(it)
         }
         view?.hideLoadingDialog()
-        view?.setGroupList(hashMap)
+        view?.setGroupList(hashMap, "Featured")
+        view?.setEvents(getFeaturedEvents(home))
+    }
+
+    private fun getFeaturedEvents(home: Home?): List<Event> {
+        val events = mutableListOf<Event>()
+        home?.featured?.forEach {
+            home.list?.masterList?.get(it.slug)?.let { event ->
+                events.add(event)
+            }
+        }
+        return events
     }
 }

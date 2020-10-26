@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Insider</string>
     <string name="rupee_symbol">₹%s</string>
+    <string name="error_text">Something went wrong. Please check your internet connection or try again after some time</string>
+    <string name="exit">EXIT</string>
+    <string name="home_filter_text">Filter By</string>
 </resources>
